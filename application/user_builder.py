@@ -26,7 +26,7 @@ class UserBuilder:
 
     def username(self, username: str) -> "UserBuilder":
         if not username:
-            raise UserFieldValidationException("Username cannot be empty")
+            raise UserFieldValidationException("User's username cannot be empty")
         user = UserRepository().find_user_by_username(username)
         if user is not None:
             raise FatalUserCreationException("User with this username is already in db, can not create")
@@ -36,13 +36,13 @@ class UserBuilder:
 
     def name(self, name: str) -> "UserBuilder":
         if not name:
-            raise UserFieldValidationException("Username cannot be empty")
+            raise UserFieldValidationException("User's name cannot be empty")
 
         self._name = name
         return self
 
     def email(self, email: str) -> "UserBuilder":
-        regex = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$'
+        regex = r'^[\w.\-]+@([\w-]+\.)+[\w-]{2,4}$'
         if not re.match(regex, email):
             raise UserFieldValidationException("User's email must be in a valid format -> example@domain.com")
 

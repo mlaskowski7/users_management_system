@@ -1,9 +1,6 @@
 from application.users_service import create_user, delete_user, list_all_users, read_user, update_user
 
-
-def start_console_ui():
-    print(
-        """
+OPERATIONS_LIST = """
 OPERATIONS LIST:
 C -> CREATE USER
 R -> READ USER
@@ -12,13 +9,14 @@ D -> DELETE USER
 
 L -> LIST ALL USERS
 E -> EXIT
-        """
-    )
+"""
 
+def start_console_ui():
     is_finished = False
     while not is_finished:
-       choice = input("Provide acronynym of the operation that you want to perform: ")
-       match choice:
+        print(OPERATIONS_LIST)
+        choice = input("Provide acronynym of the operation that you want to perform: ")
+        match choice:
            case "C" | "c":
                create_user()
            case "R" | "r":

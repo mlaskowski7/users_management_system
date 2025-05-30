@@ -7,4 +7,4 @@ class User:
         self.age = age
 
     def __str__(self) -> str:
-        return f'{self.username}:\nName: {self.name}\nEmail: {self.email}\nPhone: {self.phone}\nAge: {self.age}'
+        return f'{self.username.upper()} ->\nName: {self.name}\nEmail: {self.email}\nPhone: {self.phone}\nAge: {self.age}'

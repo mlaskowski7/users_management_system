@@ -46,3 +46,27 @@ class UserRepository:
 
         with open(self.storage_path, 'w') as users_file:
             json.dump(users_data, users_file)
+
+    def find_all_users(self) -> list[User]:
+        with open(self.storage_path, 'r') as users_file:
+            users_data = json.load(users_file)
+            return [User(k, **v) for k, v in users_data.get("users").items()]
+
+    def delete_user_by_username(self, username: str) -> bool:
+        with open(self.storage_path, 'r') as users_file:
+            users_data = json.load(users_file)
+
+        if username in users_data["users"]:
+            del users_data["users"][username]
+            with open(self.storage_path, 'w') as users_file:
+                json.dump(users_data, users_file)
+            return True
+
+        return False
+
+    def update_user(self, user: User) -> bool:
+        user_in_storage = self.find_user_by_username(user.username)
+        if not user_in_storage:
+            return False
+        self.save_user(user)
+        return True
